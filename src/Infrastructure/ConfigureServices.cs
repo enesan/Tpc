@@ -17,21 +17,25 @@ public static class ConfigureServices
     {
         services.AddScoped<AuditableEntitySaveChangesInterceptor>();
 
-        if (configuration.GetValue<bool>("UseInMemoryDatabase"))
-        {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseInMemoryDatabase("CleanArchitectureDb"));
-        }
-        else
-        {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                    builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
-        }
+        // if (configuration.GetValue<bool>("UseInMemoryDatabase"))
+        // {
+        //     services.AddDbContext<ApplicationDbContext>(options =>
+        //         options.UseInMemoryDatabase("CleanArchitectureDb"));
+        // }
+        // else
+        // {
+
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseNpgsql(
+                "Server=localhost:5432;Database=postgres;Username=postgres;Password=root;",
+                builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))); 
+        // }
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<ApplicationDbContextInitialiser>();
+        
+        
 
         services
             .AddDefaultIdentity<ApplicationUser>()
@@ -44,6 +48,7 @@ public static class ConfigureServices
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
+            //  services.AddTransient<ICardService, CardService>();
 
         services.AddAuthentication()
             .AddIdentityServerJwt();

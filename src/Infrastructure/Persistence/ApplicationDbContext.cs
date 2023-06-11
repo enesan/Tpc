@@ -15,7 +15,7 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
 {
     private readonly IMediator _mediator;
     private readonly AuditableEntitySaveChangesInterceptor _auditableEntitySaveChangesInterceptor;
-
+    
     public ApplicationDbContext(
         DbContextOptions<ApplicationDbContext> options,
         IOptions<OperationalStoreOptions> operationalStoreOptions,
@@ -31,6 +31,8 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
+    public DbSet<Card> Cards => Set<Card>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
@@ -41,6 +43,7 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.AddInterceptors(_auditableEntitySaveChangesInterceptor);
+        
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
