@@ -1,4 +1,7 @@
-﻿namespace CleanArchitecture.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CleanArchitecture.Domain.Entities;
 
 public class TodoItem : BaseAuditableEntity
 {
