@@ -19,11 +19,16 @@ public class ApplicationDbContextInitialiser
         _context = context;
         _userManager = userManager;
         _roleManager = roleManager;
-        
+
     }
 
     public async Task InitialiseAsync()
     {
+        // TodoItem n = new TodoItem();
+        // _context.Entry(n).State = EntityState.Detached;
+        // _context.Set<TodoItem>().Update(n);
+        // await _context.SaveChangesAsync();
+        
         try
         {
             if (_context.Database.IsNpgsql())
@@ -77,18 +82,24 @@ public class ApplicationDbContextInitialiser
         // Seed, if necessary
         if (!_context.TodoLists.Any())
         {
-            _context.TodoLists.Add(new TodoList
+            var list = new TodoList
             {
                 Title = "Todo List",
                 Items =
                 {
-                    new TodoItem { Title = "Make a todo list 📃" },
-                    new TodoItem { Title = "Check off the first item ✅" },
-                    new TodoItem { Title = "Realise you've already done two things on the list! 🤯"},
-                    new TodoItem { Title = "Reward yourself with a nice, long nap 🏆" },
+                    new TodoItem { Title = "Make a todo list 📃", Id = 1},
+                    new TodoItem { Title = "Check off the first item ✅", Id = 2 },
+                    new TodoItem { Title = "Realise you've already done two things on the list! 🤯", Id = 3 },
+                    new TodoItem { Title = "Reward yourself with a nice, long nap 🏆", Id = 4 },
                 }
-            });
+            };
+            
 
+            _context.Entry(list).State = EntityState.Detached;
+            _context.TodoLists.Add(list);
+
+            
+            
             await _context.SaveChangesAsync();
         }
     }

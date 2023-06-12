@@ -27,7 +27,7 @@ public static class ConfigureServices
 
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(
-                "Server=localhost:5432;Database=TestDb;Username=postgres;Password=root;",
+                "Server=localhost:5432;Database=TestDb;Username=postgres;Password=root;Include Error Detail=True;",
                 builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))); 
         // }
 

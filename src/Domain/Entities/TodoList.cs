@@ -7,6 +7,9 @@ namespace CleanArchitecture.Domain.Entities;
 
 public class TodoList : BaseAuditableEntity
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public new int Id { get; set; }
     public string? Title { get; set; }
 
     public Colour Colour { get; set; } = Colour.White;

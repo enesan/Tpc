@@ -35,7 +35,10 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        builder.Entity<TodoItem>().HasKey(item => new { item.Id });
 
         base.OnModelCreating(builder);
     }
@@ -43,6 +46,8 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.AddInterceptors(_auditableEntitySaveChangesInterceptor);
+        optionsBuilder.EnableSensitiveDataLogging();
+
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
