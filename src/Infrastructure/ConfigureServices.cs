@@ -27,15 +27,14 @@ public static class ConfigureServices
 
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(
-                "Server=localhost:5432;Database=postgres;Username=postgres;Password=root;",
+                "Server=localhost:5432;Database=TestDb;Username=postgres;Password=root;",
                 builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))); 
         // }
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<ApplicationDbContextInitialiser>();
-        
-        
+
 
         services
             .AddDefaultIdentity<ApplicationUser>()

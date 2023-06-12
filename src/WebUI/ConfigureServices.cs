@@ -22,6 +22,7 @@ public static class ConfigureServices
             .AddDbContextCheck<ApplicationDbContext>();
 
         services.AddControllersWithViews();
+        
 
         services.AddRazorPages();
 

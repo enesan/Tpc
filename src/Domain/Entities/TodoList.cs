@@ -1,5 +1,8 @@
-﻿namespace CleanArchitecture.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace CleanArchitecture.Domain.Entities;
+
+[Table("TodoLists")]
 public class TodoList : BaseAuditableEntity
 {
     public string? Title { get; set; }

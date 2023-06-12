@@ -43,7 +43,6 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.AddInterceptors(_auditableEntitySaveChangesInterceptor);
-        
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
