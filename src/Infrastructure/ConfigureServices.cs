@@ -47,7 +47,7 @@ public static class ConfigureServices
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
-            //  services.AddTransient<ICardService, CardService>();
+        services.AddTransient<ICardService, CardService>();
 
         services.AddAuthentication()
             .AddIdentityServerJwt();

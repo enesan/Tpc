@@ -76,10 +76,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CleanArchitecture.Domain.Entities.TodoList", b =>
-                {
-                    b.Navigation("Items");
-                });
+
 #pragma warning restore 612, 618
         }
     }
