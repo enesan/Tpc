@@ -5,4 +5,5 @@ namespace CleanArchitecture.Application.Common.Interfaces;
 public interface ICardService
 {
     Task<CardDto> GetAsync(int id);
+    Task<CardDto> CreateAsync(CardDto dto);
 }

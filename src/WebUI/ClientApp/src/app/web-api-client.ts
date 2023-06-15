@@ -17,6 +17,7 @@ export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface ICardClient {
     get(id: number): Observable<CardDto>;
+    create(dto: CardDto): Observable<CardDto>;
 }
 
 @Injectable({
@@ -62,6 +63,58 @@ export class CardClient implements ICardClient {
     }
 
     protected processGet(response: HttpResponseBase): Observable<CardDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CardDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    create(dto: CardDto): Observable<CardDto> {
+        let url_ = this.baseUrl + "/api/Card";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(dto);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreate(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CardDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CardDto>;
+        }));
+    }
+
+    protected processCreate(response: HttpResponseBase): Observable<CardDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -753,7 +806,6 @@ export class CardDto implements ICardDto {
     id?: number;
     name?: string;
     test?: string;
-    testName?: string;
 
     constructor(data?: ICardDto) {
         if (data) {
@@ -769,7 +821,6 @@ export class CardDto implements ICardDto {
             this.id = _data["id"];
             this.name = _data["name"];
             this.test = _data["test"];
-            this.testName = _data["testName"];
         }
     }
 
@@ -785,7 +836,6 @@ export class CardDto implements ICardDto {
         data["id"] = this.id;
         data["name"] = this.name;
         data["test"] = this.test;
-        data["testName"] = this.testName;
         return data;
     }
 }
@@ -794,7 +844,6 @@ export interface ICardDto {
     id?: number;
     name?: string;
     test?: string;
-    testName?: string;
 }
 
 export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItemBriefDto {

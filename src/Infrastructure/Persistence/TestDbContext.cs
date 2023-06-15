@@ -108,9 +108,8 @@ public partial class TestDbContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("TestCard_pkey");
 
-            entity.ToTable("Card");
-
             entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Test).HasColumnType("jsonb");
         });
 
         modelBuilder.Entity<DeviceCode>(entity =>
@@ -160,11 +159,13 @@ public partial class TestDbContext : DbContext
             entity.Property(e => e.LastModified).HasColumnType("timestamp without time zone");
             entity.Property(e => e.Reminder).HasColumnType("timestamp without time zone");
 
+            entity.HasOne(d => d.List).WithMany(p => p.Items).HasForeignKey(d => d.ListId);
         });
 
         modelBuilder.Entity<TodoList>(entity =>
         {
             entity.Property(e => e.Id).ValueGeneratedNever();
+            // entity.Property(e => e.ColourCode).HasColumnName("Colour_Code");
             entity.Property(e => e.Created).HasColumnType("timestamp without time zone");
             entity.Property(e => e.LastModified).HasColumnType("timestamp without time zone");
         });

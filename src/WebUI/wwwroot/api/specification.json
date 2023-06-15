@@ -38,6 +38,38 @@
         }
       }
     },
+    "/api/Card": {
+      "post": {
+        "tags": [
+          "Card"
+        ],
+        "operationId": "Card_Create",
+        "requestBody": {
+          "x-name": "dto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CardDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
@@ -524,9 +556,6 @@
             "type": "string"
           },
           "test": {
-            "type": "string"
-          },
-          "testName": {
             "type": "string"
           }
         }
