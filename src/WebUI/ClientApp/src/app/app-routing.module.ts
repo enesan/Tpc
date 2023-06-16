@@ -14,7 +14,7 @@ export const routes: Routes = [
   { path: 'fetch-data', component: FetchDataComponent },
   { path: 'todo', component: TodoComponent, canActivate: [AuthorizeGuard] },
   { path: 'token', component: TokenComponent, canActivate: [AuthorizeGuard] },
-  { path: 'manage', component: ManageComponent, canActivate}
+  { path: 'manage', component: ManageComponent}
 ];
 
 @NgModule({

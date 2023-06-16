@@ -17,7 +17,7 @@ import { TokenComponent } from './token/token.component';
 import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ManageModuleComponent } from './manage-module/manage-module.component';
+import {ManageComponent} from "./manage/manage.component";
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { ManageModuleComponent } from './manage-module/manage-module.component';
     FetchDataComponent,
     TodoComponent,
     TokenComponent,
-    ManageModuleComponent
+    ManageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
