@@ -22,8 +22,7 @@ public class CardService : ICardService
     public async Task<CardDto> GetAsync(int id)
     {
         var model = await _context.Cards.FirstOrDefaultAsync(x => x.Id == id);
-
-       
+        
         var result = new CardDto() { Id = id, Name = model.Name, Test = model.Test};
 
         return result;

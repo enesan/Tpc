@@ -28,9 +28,10 @@
           "200": {
             "description": "",
             "content": {
-              "application/json": {
+              "application/octet-stream": {
                 "schema": {
-                  "$ref": "#/components/schemas/CardDto"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }

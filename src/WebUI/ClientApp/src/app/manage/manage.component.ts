@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CardClient, CardDto} from "../web-api-client";
 
 @Component({
   selector: 'app-manage',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageComponent implements OnInit {
 
-  constructor() { }
+  readonly LINK = "https://localhost:44447/api/Card/3"
+  constructor(private cardClient: CardClient) {
+
+  }
 
   ngOnInit(): void {
   }
+
+ getUnoCard() {
+    return this.LINK;
+ }
 
 }

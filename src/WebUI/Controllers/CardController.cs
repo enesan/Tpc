@@ -6,6 +6,7 @@ using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.WebUI.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Net.Mime;
 using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
@@ -15,6 +16,7 @@ namespace CleanArchitecture.WebUI.Controllers;
 public class CardController : ApiControllerBase
 {
     private ICardService _service;
+    private const string contentType = "application/json";
 
     public CardController(ICardService service)
     {
@@ -22,9 +24,13 @@ public class CardController : ApiControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<CardDto>> Get(int id)
+    public async Task<FileContentResult> Get(int id)
     {
-        return new JsonResult(await _service.GetAsync(id));
+        var model = await _service.GetAsync(id);
+        byte[] data = Encoding.UTF8.GetBytes(model.Test);
+        string fileName = "data_" + model.Id + ".jsonb";
+
+        return File(data, contentType, fileName);
     }
 
     [HttpPost]
@@ -40,19 +46,6 @@ public class CardController : ApiControllerBase
     public async Task<ActionResult> Upload(IFormFile file)
     {
         await _service.SendJsonAsync(file);
-        
-        // byte[] buffer = new byte[file.Length];
-        // await using var sr = file.OpenReadStream();
-        // await sr.ReadAsync(buffer);
-        // string result = Encoding.ASCII.GetString(buffer);
-        // StringBuilder sb = new (result);
-        // sb = sb.Replace(" ", "");
-        // sb = sb.Replace("\r\n", "");
-        // result = sb.ToString();
-        
-
         return Ok();
     }
-    
-    
 }
