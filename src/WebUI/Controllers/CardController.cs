@@ -23,6 +23,7 @@ public class CardController : ApiControllerBase
         _service = service;
     }
 
+    // исправить, чтобы добавлял расширение файла при скачивании
     [HttpGet("{id}")]
     public async Task<FileContentResult> Get(int id)
     {
@@ -45,7 +46,7 @@ public class CardController : ApiControllerBase
     [HttpPost("upload")]
     public async Task<ActionResult> Upload(IFormFile file)
     {
-        await _service.SendJsonAsync(file);
+        await _service.UploadFileAsync(file);
         return Ok();
     }
 }

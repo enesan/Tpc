@@ -40,7 +40,7 @@ public class CardService : ICardService
         return dto;
     }
 
-    public async Task SendJsonAsync(IFormFile file)
+    public async Task UploadFileAsync(IFormFile file)
     {
         byte[] buffer = new byte[file.Length];
         await using var sr = file.OpenReadStream();

@@ -7,5 +7,5 @@ public interface ICardService
 {
     Task<CardDto> GetAsync(int id);
     Task<CardDto> CreateAsync(CardDto dto);
-    Task SendJsonAsync(IFormFile file);
+    Task UploadFileAsync(IFormFile file);
 }
