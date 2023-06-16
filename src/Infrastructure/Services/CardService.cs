@@ -1,7 +1,9 @@
 ﻿using System.Net.Http.Headers;
+using System.Text;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,20 +41,25 @@ public class CardService : ICardService
         return dto;
     }
 
-    public async Task SendJsonAsync(string file)
+    public async Task SendJsonAsync(IFormFile file)
     {
-        using var form = new MultipartFormDataContent();
-        using var fileContent = new ByteArrayContent(await File.ReadAllBytesAsync(file));
-        fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("multipart/form-data");
+        byte[] buffer = new byte[file.Length];
+        await using var sr = file.OpenReadStream();
+        await sr.ReadAsync(buffer);
+        string result = Encoding.ASCII.GetString(buffer);
+        StringBuilder sb = new (result);
+        sb = sb.Replace(" ", "");
+        sb = sb.Replace("\r\n", "");
+        result = sb.ToString();
         
-        form.Add(fileContent, "formfile", "filename");
+       const int defaultId = 0;
+       const int idOffset = 1;
+       var newId = (_context.Cards.Any() ? _context.Cards.Max(x => x.Id) : defaultId) + idOffset;
+       
+       var entity = new Card() { Id = newId, Name = file.FileName, Test = result };
 
-        HttpClient httpClient = new () { BaseAddress = new Uri("https://localhost:44447") };
-
-        var response = await httpClient.PostAsync("/File/Upload", form);
-        response.EnsureSuccessStatusCode();
-        var responseContent = await response.Content.ReadAsStringAsync();
-
+       await _context.Cards.AddAsync(entity);
+       await _context.SaveChangesAsync(CancellationToken.None);
     }
     
     
