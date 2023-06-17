@@ -866,8 +866,7 @@ export class WeatherForecastClient implements IWeatherForecastClient {
 
 export class CardDto implements ICardDto {
     id?: number;
-    name?: string;
-    test?: string;
+    file?: string;
 
     constructor(data?: ICardDto) {
         if (data) {
@@ -881,8 +880,7 @@ export class CardDto implements ICardDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.name = _data["name"];
-            this.test = _data["test"];
+            this.file = _data["file"];
         }
     }
 
@@ -896,16 +894,14 @@ export class CardDto implements ICardDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["name"] = this.name;
-        data["test"] = this.test;
+        data["file"] = this.file;
         return data;
     }
 }
 
 export interface ICardDto {
     id?: number;
-    name?: string;
-    test?: string;
+    file?: string;
 }
 
 export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItemBriefDto {

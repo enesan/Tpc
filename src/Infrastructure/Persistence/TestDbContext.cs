@@ -109,7 +109,7 @@ public partial class TestDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("TestCard_pkey");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Test).HasColumnType("jsonb");
+            entity.Property(e => e.File).HasColumnType("jsonb");
         });
 
         modelBuilder.Entity<DeviceCode>(entity =>

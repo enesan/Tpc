@@ -23,7 +23,7 @@ public class CardService : ICardService
     {
         var model = await _context.Cards.FirstOrDefaultAsync(x => x.Id == id);
         
-        var result = new CardDto() { Id = id, Name = model.Name, Test = model.Test};
+        var result = new CardDto() { Id = id,  File = model.File};
 
         return result;
     }
@@ -33,7 +33,7 @@ public class CardService : ICardService
         const int defaultId = 1;
         var previousModelId = _context.Cards.Any() ? _context.Cards.Max(x => x.Id) : defaultId;
 
-        var entity = new Card() { Id = previousModelId, Name = dto.Name, Test = dto.Test };
+        var entity = new Card() { Id = previousModelId, File = dto.File};
 
         await _context.Cards.AddAsync(entity);
         await _context.SaveChangesAsync(CancellationToken.None);
@@ -55,7 +55,7 @@ public class CardService : ICardService
        const int idOffset = 1;
        var newId = (_context.Cards.Any() ? _context.Cards.Max(x => x.Id) : defaultId) + idOffset;
        
-       var entity = new Card() { Id = newId, Name = file.FileName, Test = result };
+       var entity = new Card() { Id = newId, File = result };
 
        await _context.Cards.AddAsync(entity);
        await _context.SaveChangesAsync(CancellationToken.None);

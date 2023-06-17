@@ -28,7 +28,7 @@ public class CardController : ApiControllerBase
     public async Task<FileContentResult> Get(int id)
     {
         var model = await _service.GetAsync(id);
-        byte[] data = Encoding.UTF8.GetBytes(model.Test);
+        byte[] data = Encoding.UTF8.GetBytes(model.File);
         string fileName = "data_" + model.Id + ".jsonb";
 
         return File(data, contentType, fileName);

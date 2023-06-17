@@ -590,10 +590,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "name": {
-            "type": "string"
-          },
-          "test": {
+          "file": {
             "type": "string"
           }
         }
