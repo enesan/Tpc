@@ -45,7 +45,7 @@ public class CardService : ICardService
         byte[] buffer = new byte[file.Length];
         await using var sr = file.OpenReadStream();
         await sr.ReadAsync(buffer);
-        string result = Encoding.ASCII.GetString(buffer);
+        string result = Encoding.UTF8.GetString(buffer);
         StringBuilder sb = new (result);
         sb = sb.Replace(" ", "");
         sb = sb.Replace("\r\n", "");

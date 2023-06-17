@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CardClient, CardDto} from "../web-api-client";
+import {CardClient, CardDto, FileParameter} from "../web-api-client";
 
 @Component({
   selector: 'app-manage',
@@ -14,6 +14,15 @@ export class ManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  uploadFile() {
+    let fileFromInput = (document.getElementById("file") as HTMLInputElement).files[0];
+    if (fileFromInput === null) return;
+
+    let fileParameter: FileParameter = {data: fileFromInput, fileName: fileFromInput.name};
+
+    this.cardClient.upload(fileParameter).subscribe();
   }
 
  getUnoCard() {
