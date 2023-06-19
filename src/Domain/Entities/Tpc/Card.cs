@@ -1,15 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
 
 namespace CleanArchitecture.Domain.Entities;
 
 [Table("Cards")]
-public class Card
+public class Card : IDisposable
 {
     public int Id { get; set; }
     
     [Column(TypeName="jsonb")]
     public CardFile File { get; set; }
+    public JsonDocument NewFile { get; set; }
 
+    public void Dispose() => NewFile.Dispose();
 
     public Card()
     {

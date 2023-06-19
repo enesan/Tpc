@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
 using CleanArchitecture.Domain.Entities;
@@ -55,7 +56,7 @@ public class CardService : ICardService
        const int idOffset = 1;
        var newId = (_context.Cards.Any() ? _context.Cards.Max(x => x.Id) : defaultId) + idOffset;
        
-       var entity = new Card() { Id = newId, File = result };
+       var entity = new Card() { Id = newId, NewFile = JsonDocument.Parse(result) };
 
        await _context.Cards.AddAsync(entity);
        await _context.SaveChangesAsync(CancellationToken.None);

@@ -39,6 +39,14 @@ public partial class TestDbContext : DbContext
     public virtual DbSet<TodoItem> TodoItems { get; set; }
 
     public virtual DbSet<TodoList> TodoLists { get; set; }
+    public virtual DbSet<Controller> Controllers { get; set; }
+    public virtual DbSet<ElectronicParam> ElectronicParams { get; set; }
+    public virtual DbSet<MechanicalParam> MechanicalParams { get; set; }
+    public virtual DbSet<Pad> Pads { get; set; }
+    public virtual DbSet<Sector> Sectors { get; set; }
+    public virtual DbSet<StapIvn9> StapIvn9 { get; set; }
+    public virtual DbSet<Temperature> Temperatures { get; set; }
+    public virtual DbSet<WorkSectorParam> WorkSectorParams { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -170,8 +178,8 @@ public partial class TestDbContext : DbContext
             entity.Property(e => e.LastModified).HasColumnType("timestamp without time zone");
         });
 
-        OnModelCreatingPartial(modelBuilder);
+
     }
 
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
 }

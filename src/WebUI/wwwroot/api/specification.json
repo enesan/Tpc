@@ -591,9 +591,75 @@
             "format": "int32"
           },
           "file": {
-            "type": "string"
+            "$ref": "#/components/schemas/CardFile"
           }
         }
+      },
+      "CardFile": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/File"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "sampaId": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "fpgaId": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "sectors": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Sector"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Sector": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "file": {
+            "$ref": "#/components/schemas/SectorFile"
+          }
+        }
+      },
+      "SectorFile": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/File"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "level": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "route": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ]
+      },
+      "File": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false
       },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",
