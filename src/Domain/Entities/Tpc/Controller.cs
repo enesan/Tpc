@@ -7,10 +7,10 @@ public class Controller
     public int Id { get; set; }
     
     [Column(TypeName="jsonb")]
-    public File File { get; set; }
+    public ControllerFile File { get; set; }
 }
 
 public class ControllerFile: File
 {
-    public int SectorId { get; set; }
+    public Sector Sector { get; set; }
 }

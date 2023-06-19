@@ -36,7 +36,9 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<Card>().HasAlternateKey(x => new { x.File.FpgaId, x.File.SampaId });
         
+
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         builder.Entity<TodoItem>().HasKey(item => new { item.Id });
