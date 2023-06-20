@@ -9,8 +9,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using CleanArchitecture.Infrastructure.Persistence.TpcDbContext;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace CleanArchitecture.Infrastructure;
 
 public static class ConfigureServices
 {
@@ -33,6 +35,7 @@ public static class ConfigureServices
         // }
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+        services.AddScoped<ITpcDbContext>(provider => provider.GetRequiredService<TpcDbContext>());
 
         services.AddScoped<ApplicationDbContextInitialiser>();
 

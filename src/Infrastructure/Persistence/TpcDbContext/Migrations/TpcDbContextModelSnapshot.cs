@@ -4,6 +4,7 @@ using System.Text.Json;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Entities.Tpc;
 using CleanArchitecture.Infrastructure;
+using CleanArchitecture.Infrastructure.Persistence.TpcDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -13,8 +14,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CleanArchitecture.Infrastructure.Migrations
 {
-    [DbContext(typeof(TestDbContext))]
-    partial class TestDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(TpcDbContext))]
+    partial class TpcDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

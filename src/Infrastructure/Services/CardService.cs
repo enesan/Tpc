@@ -58,9 +58,9 @@ public class CardService : ICardService
        const int idOffset = 1;
        var newId = (_context.Cards.Any() ? _context.Cards.Max(x => x.Id) : defaultId) + idOffset;
        
-       var entity = new Card() { Id = newId, File = JsonDocument.Parse(result) };
+    //   var entity = new Card() { Id = newId, File = result) };
 
-       await _context.Cards.AddAsync(entity);
+      // await _context.Cards.AddAsync(entity);
        await _context.SaveChangesAsync(CancellationToken.None);
     }
     

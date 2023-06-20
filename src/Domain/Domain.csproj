@@ -13,7 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="Entities\TestDbContext.cs" />
+      <Compile Remove="Entities\TpcDbContext.cs" />
     </ItemGroup>
 
 </Project>

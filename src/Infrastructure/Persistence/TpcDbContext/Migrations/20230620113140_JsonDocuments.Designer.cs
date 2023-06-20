@@ -14,7 +14,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CleanArchitecture.Infrastructure.Persistence.Migrations.TestDb
 {
-    [DbContext(typeof(TestDbContext))]
+    [DbContext(typeof(TpcDbContext.TpcDbContext))]
     [Migration("20230620113140_JsonDocuments")]
     partial class JsonDocuments
     {

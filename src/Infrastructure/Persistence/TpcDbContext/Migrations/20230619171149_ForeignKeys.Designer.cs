@@ -4,6 +4,7 @@ using System.Text.Json;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Entities.Tpc;
 using CleanArchitecture.Infrastructure;
+using CleanArchitecture.Infrastructure.Persistence.TpcDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -14,7 +15,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CleanArchitecture.Infrastructure.Migrations
 {
-    [DbContext(typeof(TestDbContext))]
+    [DbContext(typeof(TpcDbContext))]
     [Migration("20230619171149_ForeignKeys")]
     partial class ForeignKeys
     {

@@ -1,3 +1,4 @@
+using CleanArchitecture.Infrastructure;
 using CleanArchitecture.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;

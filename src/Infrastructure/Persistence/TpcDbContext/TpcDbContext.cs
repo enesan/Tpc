@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using CleanArchitecture.Application.Common.Models.Tpc;
+﻿using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Entities.Tpc;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.Infrastructure;
+namespace CleanArchitecture.Infrastructure.Persistence.TpcDbContext;
 
-public partial class TestDbContext : DbContext
+public class TpcDbContext : DbContext, ITpcDbContext
 {
-    public TestDbContext()
+    public TpcDbContext()
     {
     }
 
-    public TestDbContext(DbContextOptions<TestDbContext> options)
+    public TpcDbContext(DbContextOptions<TpcDbContext> options)
         : base(options)
     {
     }
 
-    public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+    public virtual DbSet<AspNetRole> AspNetRoles => Set<AspNetRole>();
 
     public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
 

@@ -9,6 +9,7 @@ using System.IO;
 using System.Net.Mime;
 using System.Security.Cryptography;
 using System.Text;
+using CleanArchitecture.Application.Common.Models.Tpc;
 using Newtonsoft.Json;
 
 namespace CleanArchitecture.WebUI.Controllers;

@@ -583,7 +583,19 @@
   "components": {
     "schemas": {
       "CardDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseEntityOfCardFile"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "BaseEntityOfCardFile": {
         "type": "object",
+        "x-abstract": true,
         "additionalProperties": false,
         "properties": {
           "id": {
@@ -596,31 +608,24 @@
         }
       },
       "CardFile": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/File"
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sampaId": {
+            "type": "integer",
+            "format": "int32"
           },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "sampaId": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "fpgaId": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "sectors": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/Sector"
-                }
-              }
+          "fpgaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sectors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sector"
             }
           }
-        ]
+        }
       },
       "Sector": {
         "type": "object",
@@ -636,30 +641,18 @@
         }
       },
       "SectorFile": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/File"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "level": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "route": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
-          }
-        ]
-      },
-      "File": {
         "type": "object",
-        "x-abstract": true,
-        "additionalProperties": false
+        "additionalProperties": false,
+        "properties": {
+          "level": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "route": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
       },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",

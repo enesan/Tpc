@@ -864,11 +864,11 @@ export class WeatherForecastClient implements IWeatherForecastClient {
     }
 }
 
-export class CardDto implements ICardDto {
+export abstract class BaseEntityOfCardFile implements IBaseEntityOfCardFile {
     id?: number;
     file?: CardFile;
 
-    constructor(data?: ICardDto) {
+    constructor(data?: IBaseEntityOfCardFile) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -884,11 +884,9 @@ export class CardDto implements ICardDto {
         }
     }
 
-    static fromJS(data: any): CardDto {
+    static fromJS(data: any): BaseEntityOfCardFile {
         data = typeof data === 'object' ? data : {};
-        let result = new CardDto();
-        result.init(data);
-        return result;
+        throw new Error("The abstract class 'BaseEntityOfCardFile' cannot be instantiated.");
     }
 
     toJSON(data?: any) {
@@ -899,14 +897,44 @@ export class CardDto implements ICardDto {
     }
 }
 
-export interface ICardDto {
+export interface IBaseEntityOfCardFile {
     id?: number;
     file?: CardFile;
 }
 
-export abstract class File implements IFile {
+export class CardDto extends BaseEntityOfCardFile implements ICardDto {
 
-    constructor(data?: IFile) {
+    constructor(data?: ICardDto) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+    }
+
+    static override fromJS(data: any): CardDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CardDto();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface ICardDto extends IBaseEntityOfCardFile {
+}
+
+export class CardFile implements ICardFile {
+    sampaId?: number;
+    fpgaId?: number;
+    sectors?: Sector[];
+
+    constructor(data?: ICardFile) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -916,33 +944,6 @@ export abstract class File implements IFile {
     }
 
     init(_data?: any) {
-    }
-
-    static fromJS(data: any): File {
-        data = typeof data === 'object' ? data : {};
-        throw new Error("The abstract class 'File' cannot be instantiated.");
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        return data;
-    }
-}
-
-export interface IFile {
-}
-
-export class CardFile extends File implements ICardFile {
-    sampaId?: number;
-    fpgaId?: number;
-    sectors?: Sector[];
-
-    constructor(data?: ICardFile) {
-        super(data);
-    }
-
-    override init(_data?: any) {
-        super.init(_data);
         if (_data) {
             this.sampaId = _data["sampaId"];
             this.fpgaId = _data["fpgaId"];
@@ -954,14 +955,14 @@ export class CardFile extends File implements ICardFile {
         }
     }
 
-    static override fromJS(data: any): CardFile {
+    static fromJS(data: any): CardFile {
         data = typeof data === 'object' ? data : {};
         let result = new CardFile();
         result.init(data);
         return result;
     }
 
-    override toJSON(data?: any) {
+    toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["sampaId"] = this.sampaId;
         data["fpgaId"] = this.fpgaId;
@@ -970,12 +971,11 @@ export class CardFile extends File implements ICardFile {
             for (let item of this.sectors)
                 data["sectors"].push(item.toJSON());
         }
-        super.toJSON(data);
         return data;
     }
 }
 
-export interface ICardFile extends IFile {
+export interface ICardFile {
     sampaId?: number;
     fpgaId?: number;
     sectors?: Sector[];
@@ -1021,39 +1021,42 @@ export interface ISector {
     file?: SectorFile;
 }
 
-export class SectorFile extends File implements ISectorFile {
+export class SectorFile implements ISectorFile {
     level?: number;
     route?: number;
 
     constructor(data?: ISectorFile) {
-        super(data);
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
     }
 
-    override init(_data?: any) {
-        super.init(_data);
+    init(_data?: any) {
         if (_data) {
             this.level = _data["level"];
             this.route = _data["route"];
         }
     }
 
-    static override fromJS(data: any): SectorFile {
+    static fromJS(data: any): SectorFile {
         data = typeof data === 'object' ? data : {};
         let result = new SectorFile();
         result.init(data);
         return result;
     }
 
-    override toJSON(data?: any) {
+    toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["level"] = this.level;
         data["route"] = this.route;
-        super.toJSON(data);
         return data;
     }
 }
 
-export interface ISectorFile extends IFile {
+export interface ISectorFile {
     level?: number;
     route?: number;
 }
