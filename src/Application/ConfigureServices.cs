@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
 using CleanArchitecture.Application.Common.Behaviours;
-using CleanArchitecture.Application.Common.Exceptions;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace CleanArchitecture.Application;
 
 public static class ConfigureServices
 {

@@ -50,4 +50,6 @@ public class CardController : ApiControllerBase
         await _service.UploadFileAsync(file);
         return Ok();
     }
+    
+    
 }

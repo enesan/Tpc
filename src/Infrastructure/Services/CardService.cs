@@ -25,8 +25,8 @@ public class CardService : ICardService
     public async Task<CardDto> GetAsync(int id)
     {
         var model = await _context.Cards.FirstOrDefaultAsync(x => x.Id == id);
-        
-        var result = new CardDto() { Id = id,  File = model.File};
+
+        var result = new CardDto() { Id = id, File = model.File };
 
         return result;
     }
@@ -36,7 +36,7 @@ public class CardService : ICardService
         const int defaultId = 1;
         var previousModelId = _context.Cards.Any() ? _context.Cards.Max(x => x.Id) : defaultId;
 
-        var entity = new Card() { Id = previousModelId, File = dto.File};
+        var entity = new Card() { Id = previousModelId, File = dto.File };
 
         await _context.Cards.AddAsync(entity);
         await _context.SaveChangesAsync(CancellationToken.None);
@@ -45,6 +45,27 @@ public class CardService : ICardService
 
     public async Task UploadFileAsync(IFormFile file)
     {
+        string result = await GetJsonFromFile(file);
+
+        const int defaultId = 0;
+        const int idOffset = 1;
+        var newId = (_context.Cards.Any() ? _context.Cards.Max(x => x.Id) : defaultId) + idOffset;
+
+        //   var entity = new Card() { Id = newId, File = result) };
+
+        // await _context.Cards.AddAsync(entity);
+        await _context.SaveChangesAsync(CancellationToken.None);
+    }
+
+    public async Task CreateFromEntities(IFormFile file)
+    {
+        string result = await GetJsonFromFile(file);
+        
+        var newCard = result.
+    }
+
+    private async Task<string> GetJsonFromFile(IFormFile file)
+    {
         byte[] buffer = new byte[file.Length];
         await using var sr = file.OpenReadStream();
         await sr.ReadAsync(buffer);
@@ -52,16 +73,7 @@ public class CardService : ICardService
         StringBuilder sb = new (result);
         sb = sb.Replace(" ", "");
         sb = sb.Replace("\r\n", "");
-        result = sb.ToString();
-        
-       const int defaultId = 0;
-       const int idOffset = 1;
-       var newId = (_context.Cards.Any() ? _context.Cards.Max(x => x.Id) : defaultId) + idOffset;
-       
-    //   var entity = new Card() { Id = newId, File = result) };
-
-      // await _context.Cards.AddAsync(entity);
-       await _context.SaveChangesAsync(CancellationToken.None);
+        return sb.ToString();
     }
     
     
