@@ -2,6 +2,7 @@
 using System;
 using System.Text.Json;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Entities.Tpc;
 using CleanArchitecture.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -11,11 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace CleanArchitecture.Infrastructure.Migrations
+namespace CleanArchitecture.Infrastructure.Persistence.Migrations.TestDb
 {
     [DbContext(typeof(TestDbContext))]
-    [Migration("20230619171149_ForeignKeys")]
-    partial class ForeignKeys
+    [Migration("20230620113140_JsonDocuments")]
+    partial class JsonDocuments
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,11 +48,7 @@ namespace CleanArchitecture.Infrastructure.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("integer");
 
-                    b.Property<CardFile>("File")
-                        .IsRequired()
-                        .HasColumnType("jsonb");
-
-                    b.Property<JsonDocument>("NewFile")
+                    b.Property<JsonDocument>("File")
                         .IsRequired()
                         .HasColumnType("jsonb");
 
@@ -69,7 +66,7 @@ namespace CleanArchitecture.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<ControllerFile>("File")
+                    b.Property<JsonDocument>("File")
                         .IsRequired()
                         .HasColumnType("jsonb");
 
@@ -86,7 +83,7 @@ namespace CleanArchitecture.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<ElectronicParamFile>("File")
+                    b.Property<JsonDocument>("File")
                         .IsRequired()
                         .HasColumnType("jsonb");
 
@@ -103,7 +100,7 @@ namespace CleanArchitecture.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<MechanicalParamFile>("File")
+                    b.Property<JsonDocument>("File")
                         .IsRequired()
                         .HasColumnType("jsonb");
 
@@ -137,7 +134,7 @@ namespace CleanArchitecture.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<SectorFile>("File")
+                    b.Property<JsonDocument>("File")
                         .IsRequired()
                         .HasColumnType("jsonb");
 

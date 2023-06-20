@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace CleanArchitecture.Infrastructure.Persistence;
+namespace CleanArchitecture.Infrastructure.Persistence.ApplicationDbContext;
 
 public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
     
@@ -31,8 +31,9 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     public DbSet<TodoList> TodoLists => Set<TodoList>();
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+   // public DbSet<Card> Cards => Set<Card>();
 
-    public DbSet<Card> Cards => Set<Card>();
+    // public DbSet<Card> Cards => Set<Card>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

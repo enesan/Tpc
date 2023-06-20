@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace CleanArchitecture.Domain.Entities;
+﻿namespace CleanArchitecture.Domain.Entities.Tpc;
 
 public class Controller
 {
@@ -10,7 +8,7 @@ public class Controller
     public ControllerFile File { get; set; }
 }
 
-public class ControllerFile: File
+public class ControllerFile
 {
     public Sector Sector { get; set; }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Entities.Tpc;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 

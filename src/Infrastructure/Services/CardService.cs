@@ -3,7 +3,9 @@ using System.Text;
 using System.Text.Json;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Application.Common.Models;
+using CleanArchitecture.Application.Common.Models.Tpc;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Entities.Tpc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +15,9 @@ namespace CleanArchitecture.Infrastructure.Services;
 
 public class CardService : ICardService
 {
-    private IApplicationDbContext _context;
+    private ITpcDbContext _context;
 
-    public CardService(IApplicationDbContext context)
+    public CardService(ITpcDbContext context)
     {
         _context = context;
     }
@@ -56,7 +58,7 @@ public class CardService : ICardService
        const int idOffset = 1;
        var newId = (_context.Cards.Any() ? _context.Cards.Max(x => x.Id) : defaultId) + idOffset;
        
-       var entity = new Card() { Id = newId, NewFile = JsonDocument.Parse(result) };
+       var entity = new Card() { Id = newId, File = JsonDocument.Parse(result) };
 
        await _context.Cards.AddAsync(entity);
        await _context.SaveChangesAsync(CancellationToken.None);

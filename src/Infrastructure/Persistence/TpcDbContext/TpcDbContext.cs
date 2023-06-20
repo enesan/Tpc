@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using CleanArchitecture.Application.Common.Models.Tpc;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Domain.Entities.Tpc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infrastructure;

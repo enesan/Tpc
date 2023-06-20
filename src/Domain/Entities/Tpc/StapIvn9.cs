@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Entities;
+﻿namespace CleanArchitecture.Domain.Entities.Tpc;
 
 public class StapIvn9
 {
@@ -8,7 +8,7 @@ public class StapIvn9
     public StapIvn9File File { get; set; }
 }
 
-public class StapIvn9File :File {
+public class StapIvn9File {
     
     public Sector Sector { get; set; }
 }

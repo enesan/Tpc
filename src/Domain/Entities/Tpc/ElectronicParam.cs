@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace CleanArchitecture.Domain.Entities;
+﻿namespace CleanArchitecture.Domain.Entities.Tpc;
 
 public class ElectronicParam
 {
@@ -10,14 +8,14 @@ public class ElectronicParam
     public ElectronicParamFile File { get; set; }
 }
 
-public class ElectronicParamFile: File
+public class ElectronicParamFile
 {
     public List<Pad> Pads { get; set; }
     
-    [ForeignKey("SampaId")]
+   // [ForeignKey("SampaId")]
     public int SampaId { get; set; }
     
-    [ForeignKey("FpgaId")]
+   // [ForeignKey("FpgaId")]
     public int FpgaId { get; set; }
 
     public ElectronicParamFile()

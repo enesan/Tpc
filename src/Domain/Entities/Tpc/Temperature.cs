@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Entities;
+﻿namespace CleanArchitecture.Domain.Entities.Tpc;
 
 public class Temperature
 {
@@ -8,7 +8,7 @@ public class Temperature
     public TemperatureFile File { get; set; }
 }
 
-public class TemperatureFile : File {
+public class TemperatureFile {
     public Sector Sector { get; set; }
     private double T1 { get; set; }
     private double T2 { get; set; }

@@ -1,5 +1,7 @@
-﻿using CleanArchitecture.Application.Common.Models;
+﻿
+
 using Microsoft.AspNetCore.Http;
+using CleanArchitecture.Application.Common.Models.Tpc;
 
 namespace CleanArchitecture.Application.Common.Interfaces;
 

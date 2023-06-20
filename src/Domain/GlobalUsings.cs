@@ -5,3 +5,4 @@ global using CleanArchitecture.Domain.Events;
 global using CleanArchitecture.Domain.Exceptions;
 global using CleanArchitecture.Domain.ValueObjects;
 global using System.ComponentModel.DataAnnotations.Schema;
+global using System.Text.Json;
