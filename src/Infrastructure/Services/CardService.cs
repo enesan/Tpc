@@ -61,7 +61,7 @@ public class CardService : ICardService
     {
         string result = await GetJsonFromFile(file);
         
-        var newCard = result.
+        
     }
 
     private async Task<string> GetJsonFromFile(IFormFile file)
