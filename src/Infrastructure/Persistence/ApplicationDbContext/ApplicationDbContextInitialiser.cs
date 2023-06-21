@@ -12,16 +12,17 @@ public class ApplicationDbContextInitialiser
     private readonly ApplicationDbContext.ApplicationDbContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
+    
 
-    public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger,
-        ApplicationDbContext.ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
-    {
-        _logger = logger;
-        _context = context;
-        _userManager = userManager;
-        _roleManager = roleManager;
-
-    }
+     public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger,
+         ApplicationDbContext.ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+     {
+         _logger = logger;
+         _context = context;
+         _userManager = userManager;
+         _roleManager = roleManager;
+    
+     }
 
     public async Task InitialiseAsync()
     {

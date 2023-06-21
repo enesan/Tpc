@@ -16,7 +16,8 @@ namespace CleanArchitecture.Infrastructure;
 
 public static class ConfigureServices
 {
-    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services,
+        IConfiguration configuration)
     {
         services.AddScoped<AuditableEntitySaveChangesInterceptor>();
 
@@ -32,34 +33,30 @@ public static class ConfigureServices
             .AddDbContext<TpcDbContext>(options =>
                 options.UseNpgsql(
                     "Server=localhost:5432;Database=TestDb;Username=postgres;Password=root;Include Error Detail=True",
-                    builder => builder.MigrationsAssembly(typeof(TpcDbContext).Assembly.FullName)));
-        
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseNpgsql(
-                "Server=localhost:5432;Database=TestDb;Username=postgres;Password=root;Include Error Detail=True;",
-                builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))); 
+                    builder => builder.MigrationsAssembly(typeof(TpcDbContext).Assembly.FullName)))
+            .AddDbContext<ApplicationDbContext.ApplicationDbContext>(options =>
+                options.UseNpgsql(
+                    "Server=localhost:5432;Database=TestDb;Username=postgres;Password=root;Include Error Detail=True;",
+                    builder => builder.MigrationsAssembly(typeof(Persistence.ApplicationDbContext.ApplicationDbContext).Assembly.FullName)));
         // }
 
-        services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+        services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<Persistence.ApplicationDbContext.ApplicationDbContext>());
         services.AddScoped<ITpcDbContext>(provider => provider.GetRequiredService<TpcDbContext>());
 
         services.AddScoped<ApplicationDbContextInitialiser>();
 
-
-        services
-            .AddDefaultIdentity<ApplicationUser>()
-            .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>();
-
-        services.AddIdentityServer()
-            .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+        // services
+        //     .AddDefaultIdentity<ApplicationUser>()
+        //     .AddRoles<IdentityRole>()
+        //     .AddEntityFrameworkStores<ApplicationDbContext>();
+        //
+        // services.AddIdentityServer()
+        //     .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
         services.AddTransient<ICardService, CardService>();
-        
-        
 
         services.AddAuthentication()
             .AddIdentityServerJwt();

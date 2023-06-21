@@ -4,17 +4,20 @@ using CleanArchitecture.Domain.Entities.Tpc;
 using CleanArchitecture.Infrastructure.Persistence.TpcDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace CleanArchitecture.Infrastructure.Migrations
+namespace CleanArchitecture.Infrastructure.Persistence.TpcDbContext.Migrations
 {
     [DbContext(typeof(TpcDbContext))]
-    partial class TpcDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230621141407_Divorse")]
+    partial class Divorse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
