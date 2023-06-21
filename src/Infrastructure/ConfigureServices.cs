@@ -28,6 +28,12 @@ public static class ConfigureServices
         // else
         // {
 
+        services.AddEntityFrameworkNpgsql()
+            .AddDbContext<TpcDbContext>(options =>
+                options.UseNpgsql(
+                    "Server=localhost:5432;Database=TestDb;Username=postgres;Password=root;Include Error Detail=True",
+                    builder => builder.MigrationsAssembly(typeof(TpcDbContext).Assembly.FullName)));
+        
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(
                 "Server=localhost:5432;Database=TestDb;Username=postgres;Password=root;Include Error Detail=True;",
@@ -52,6 +58,8 @@ public static class ConfigureServices
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
         services.AddTransient<ICardService, CardService>();
+        
+        
 
         services.AddAuthentication()
             .AddIdentityServerJwt();

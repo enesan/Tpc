@@ -24,6 +24,7 @@ public static class ConfigureServices
 
         services.AddControllersWithViews();
         
+        
 
         services.AddRazorPages();
 

@@ -98,8 +98,6 @@ public class ApplicationDbContextInitialiser
 
             _context.Entry(list).State = EntityState.Detached;
             _context.TodoLists.Add(list);
-
-            
             
             await _context.SaveChangesAsync();
         }
